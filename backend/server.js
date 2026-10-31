@@ -12,16 +12,15 @@ app.use(cors({
 
 app.use(express.json());
 
-// Routes
 app.get('/', (req, res) => {
     res.send('Hello');
 });
 
 app.post('/create', createStudent);
 
-// Extract port from the full EXPRESS_URL
-const serverPort = new URL(process.env.EXPRESS_URL).port || 5000;
+// Render uses process.env.PORT automatically; locally it uses EXPRESS_URL
+const serverPort = process.env.PORT || new URL(process.env.EXPRESS_URL).port || 5000;
 
 app.listen(serverPort, () => {
-    console.log(`Express running at ${process.env.EXPRESS_URL}`);
+    console.log(`Express running on port ${serverPort}`);
 });
